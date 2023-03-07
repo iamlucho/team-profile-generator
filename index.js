@@ -182,3 +182,58 @@ function createEmployee() {
       createTeam();
     });
 }
+
+const generateHTML = (teamMembers) => {
+  const manager = teamMembers.find((member) => member instanceof Manager);
+  // Generate manager card HTML
+  const managerCard = `
+  <div class="card">
+    <div class="card-header">
+      <h2>${manager.getName()}</h2>
+      <h3><i class="fas fa-mug-hot"></i> Manager</h3>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>ID: ${manager.getId()}</li>
+        <li>Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
+        <li>Office number: ${manager.getOfficeNumber()}</li>
+      </ul>
+    </div>
+  </div>
+`;
+// Generate team member cards HTML
+const teamMemberCards = teamMembers
+.filter((member) => !(member instanceof Manager))
+.map((member) => {
+  let icon = '';
+  let property = '';
+  if (member instanceof Engineer) {
+    icon = '<i class="fas fa-glasses"></i>';
+    property = `GitHub: <a href="https://github.com/${member.getGithub()}" target="_blank">${member.getGithub()}</a>`;
+  } else if (member instanceof Intern) {
+    icon = '<i class="fas fa-user-graduate"></i>';
+    property = `School: ${member.getSchool()}`;
+  } else if (member instanceof Employee) {
+    icon = '<i class="fas fa-user"></i>';
+  }
+  return `
+    <div class="card">
+      <div class="card-header">
+        <h2>${member.getName()}</h2>
+        <h3>${icon} ${member.getRole()}</h3>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>ID: ${member.getId()}</li>
+          <li>Email: <a href="mailto:${member.getEmail()}">${member.getEmail()}</a></li>
+          <li>${property}</li>
+        </ul>
+      </div>
+    </div>
+  `;
+})
+.join('');
+
+};
+
+createManager();
