@@ -63,8 +63,8 @@ function createTeam() {
       },
     ])
     .then((data) => {
-        //Case in order to handle which team member the user wants to add
-        switch (data.memberType) {
+      //Case in order to handle which team member the user wants to add
+      switch (data.memberType) {
         case "Engineer":
           createEngineer();
           break;
@@ -121,33 +121,64 @@ function createEngineer() {
 }
 //Function to add an intern to the team
 function createIntern() {
-    console.log('Please enter the following information for the intern:');
-    inquirer.prompt([
+  console.log("Please enter the following information for the intern:");
+  inquirer
+    .prompt([
       {
-        type: 'input',
-        name: 'name',
+        type: "input",
+        name: "name",
         message: "What is the intern's name?",
       },
       {
-        type: 'input',
-        name: 'id',
+        type: "input",
+        name: "id",
         message: "What is the intern's employee ID?",
       },
       {
-        type: 'input',
-        name: 'email',
+        type: "input",
+        name: "email",
         message: "What is the intern's email address?",
       },
       {
-        type: 'input',
-        name: 'school',
+        type: "input",
+        name: "school",
         message: "What school does the intern attend?",
       },
-    ]).then((data) => {
+    ])
+    .then((data) => {
       const intern = new Intern(data.name, data.id, data.email, data.school);
       teamMembers.push(intern);
-      console.log('Intern added!');
+      console.log("Intern added!");
       //Give the option to the user to choose the team member to create
       createTeam();
     });
-  }
+}
+
+//Function to create an employee team member
+function createEmployee() {
+  console.log("Please enter the following information for the employee:");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the employee's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the employee's employee ID?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the employee's email address?",
+      },
+    ])
+    .then((data) => {
+      const employee = new Employee(data.name, data.id, data.email);
+      teamMembers.push(employee);
+      console.log("Employee added!");
+      createTeam();
+    });
+}
