@@ -119,3 +119,35 @@ function createEngineer() {
       createTeam();
     });
 }
+//Function to add an intern to the team
+function createIntern() {
+    console.log('Please enter the following information for the intern:');
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the intern's name?",
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: "What is the intern's employee ID?",
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the intern's email address?",
+      },
+      {
+        type: 'input',
+        name: 'school',
+        message: "What school does the intern attend?",
+      },
+    ]).then((data) => {
+      const intern = new Intern(data.name, data.id, data.email, data.school);
+      teamMembers.push(intern);
+      console.log('Intern added!');
+      //Give the option to the user to choose the team member to create
+      createTeam();
+    });
+  }
