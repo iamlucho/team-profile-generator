@@ -201,22 +201,22 @@ const generateHTML = (teamMembers) => {
     </div>
   </div>
 `;
-// Generate team member cards HTML
-const teamMemberCards = teamMembers
-.filter((member) => !(member instanceof Manager))
-.map((member) => {
-  let icon = '';
-  let property = '';
-  if (member instanceof Engineer) {
-    icon = '<i class="fas fa-glasses"></i>';
-    property = `GitHub: <a href="https://github.com/${member.getGithub()}" target="_blank">${member.getGithub()}</a>`;
-  } else if (member instanceof Intern) {
-    icon = '<i class="fas fa-user-graduate"></i>';
-    property = `School: ${member.getSchool()}`;
-  } else if (member instanceof Employee) {
-    icon = '<i class="fas fa-user"></i>';
-  }
-  return `
+  // Generate team member cards HTML
+  const teamMemberCards = teamMembers
+    .filter((member) => !(member instanceof Manager))
+    .map((member) => {
+      let icon = "";
+      let property = "";
+      if (member instanceof Engineer) {
+        icon = '<i class="fas fa-glasses"></i>';
+        property = `GitHub: <a href="https://github.com/${member.getGithub()}" target="_blank">${member.getGithub()}</a>`;
+      } else if (member instanceof Intern) {
+        icon = '<i class="fas fa-user-graduate"></i>';
+        property = `School: ${member.getSchool()}`;
+      } else if (member instanceof Employee) {
+        icon = '<i class="fas fa-user"></i>';
+      }
+      return `
     <div class="card">
       <div class="card-header">
         <h2>${member.getName()}</h2>
@@ -231,9 +231,34 @@ const teamMemberCards = teamMembers
       </div>
     </div>
   `;
-})
-.join('');
-
+    })
+    .join("");
+    // Generate HTML file
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Team Profile</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-j+x1Z71eTXpvcW8hG3je3Lyl01yHrP5hE8Rrh5g5Z/5xdccX/9aG72ix/kqJzYQ5lCfkswDI5Rg8hJ5DjsZVtQ==" crossorigin="anonymous" />
+      <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+      <header>
+        <h1>My Team</h1>
+      </header>
+      <main>
+        <section>
+          ${managerCard}
+        </section>
+        <section>
+          ${teamMemberCards}
+        </section>
+      </main>
+    </body>
+  </html>
+`;
 };
 
 createManager();
