@@ -233,7 +233,7 @@ const generateHTML = (teamMembers) => {
   `;
     })
     .join("");
-    // Generate HTML file
+  // Generate HTML file
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -241,7 +241,7 @@ const generateHTML = (teamMembers) => {
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Team Profile</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-j+x1Z71eTXpvcW8hG3je3Lyl01yHrP5hE8Rrh5g5Z/5xdccX/9aG72ix/kqJzYQ5lCfkswDI5Rg8hJ5DjsZVtQ==" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
       <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
@@ -249,10 +249,8 @@ const generateHTML = (teamMembers) => {
         <h1>My Team</h1>
       </header>
       <main>
-        <section>
+        <section class='content'>
           ${managerCard}
-        </section>
-        <section>
           ${teamMemberCards}
         </section>
       </main>
@@ -260,5 +258,12 @@ const generateHTML = (teamMembers) => {
   </html>
 `;
 };
+
+function generateTeam() {
+  const html = generateHTML(teamMembers);
+  fs.writeFile("./dist/team.html", html, (err) =>
+    err ? console.error(err) : console.log("HTML file generated successfully!")
+  );
+}
 
 createManager();
